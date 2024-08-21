@@ -1,0 +1,19 @@
+-- Удаление таблицы, если она существует
+DROP TABLE IF EXISTS UserLogs;
+
+-- Создание таблицы заново
+CREATE TABLE UserLogs (
+    id SERIAL PRIMARY KEY,
+    GUID VARCHAR(255) NOT NULL,
+    Timestamp TIMESTAMP NOT NULL,
+    OuterIP VARCHAR(45) NOT NULL,
+    NgToken VARCHAR(255) NOT NULL
+);
+
+-- Заполнение таблицы данными
+INSERT INTO UserLogs (GUID, Timestamp, OuterIP, NgToken) VALUES
+('guid-001', '2024-08-20 08:30:00', '192.168.0.1', 'token-001'),
+('guid-002', '2024-08-20 09:00:00', '192.168.0.2', 'token-002'),
+('guid-003', '2024-08-20 09:30:00', '192.168.0.3', 'token-003'),
+('guid-004', '2024-08-20 10:00:00', '192.168.0.4', 'token-004'),
+('guid-005', '2024-08-20 10:30:00', '192.168.0.5', 'token-005');

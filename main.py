@@ -2,6 +2,7 @@ import psycopg2
 from fastapi import FastAPI
 from pydantic import BaseModel
 from config_data.config import load_config
+from data_base import load_data
 import logging
 import uvicorn
 
@@ -15,9 +16,14 @@ class UserData(BaseModel):
 
 logger = logging.getLogger(__name__)
 
+# создание текстового файла необходимого формата для создания БД
+load_data('logins.csv','create_table.txt','full_table.txt')
+
 
 def main():
     connection = None
+
+
     logging.basicConfig(level=logging.INFO,
                         format='%(filename)s:%(lineno)d #%(levelname)-8s '
                '[%(asctime)s] - %(name)s - %(message)s')
@@ -34,7 +40,7 @@ def main():
         logger.info('PostgreSQL connection opened')
 
         #Инструкция для создания БД
-        with open('create_table.txt') as file:
+        with open('full_table.txt') as file:
             create_table_text = file.read()
 
         #Создание БД
